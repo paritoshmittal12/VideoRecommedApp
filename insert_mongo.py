@@ -4,7 +4,7 @@ import json
 import os
 from pprint import pprint
 
-BASEDIR = "Path to database"
+BASEDIR = "Path_to_database"
 client = MongoClient()
 database = client.search
 collection = database.youtube

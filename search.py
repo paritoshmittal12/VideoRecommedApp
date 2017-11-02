@@ -23,7 +23,7 @@ app.config.update(
 app.config['MONGO_DBNAME']='search'
 mongo = PyMongo(app)
 
-db = MySQLdb.connect(host="localhost", user="user", passwd="pwd", db="dbname")
+db = MySQLdb.connect(host="localhost", user="root", passwd="root", db="dbname")
 
 cursor = db.cursor()
 
@@ -100,8 +100,6 @@ def search(text):
 		result = youtube.find({'$text':{'$search':query}},{'score':{'$meta':'textScore'} })#.sort([('score',{'$meta':'textScore'})])
 		jsonArray = []
 		for each_result in result:
-			# each_result['score'] = each_result['score'] + 10*each_result['videoInfo']['statistics']['clicks']
-			#print str(each_result['_id']) + "  with " +str(each_result['score']) + " idhr "+str(each_result['videoInfo']['statistics']['clicks'])
 			jsonArray.append(each_result)
 		ArrayjsonArray.append(jsonArray)
 	finalResult=[]
