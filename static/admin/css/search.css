@@ -1,0 +1,81 @@
+body {
+	font-family: 'Open Sans', sans-serif;
+	background-color: #f7f7f7;
+}
+
+.container {
+	text-align: left;
+	margin-left: -50px;
+}
+.did-u-mean{
+	display: inline-block;
+	width: 85%;
+	margin-bottom: -10px;
+}
+.did-u-mean > p {
+	float:left;
+}
+
+.lib-panel {
+	width:90%;
+	display: inline-block;
+	background-color: #ffffff;
+	border-radius: 5px;
+	margin-bottom: 15px;
+	border-color: #444;
+	border-width: 1px;
+	padding: 10px;
+}
+
+.panel-image, .panel-desc {
+	display: block;
+	float: left;
+	padding: 10px;
+	vertical-align: top;
+
+}
+
+.panel-image{
+	float: left;
+	text-align: center;
+	max-width: 30%;
+}
+
+.panel-desc {
+	text-align: left;
+	margin-left: 70px;
+	float: left;
+	max-width:55%;
+}
+
+.vidDescription{
+	margin-top: 0px;
+	word-wrap: break-word;
+
+	display: block; /* Fallback for non-webkit */
+	display: -webkit-box;
+	max-width: 90%;
+	height: 16*1.4*2; /* Fallback for non-webkit */
+	margin: 0 auto;
+	font-size: 16;
+	line-height: 1.4;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+.lib-header-seperator{
+	margin:10px;
+}
+
+
+
+.noResult{
+	text-align: center;
+	width:80%;
+	color:#7f8287;
+}
+
+

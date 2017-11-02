@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	<title>Video | Youtube Video Search</title>
+	<!-- Favicon-->
+	<link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+	<!-- Bootstrap Core Css -->
+	<link href="/static/admin/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+	<!-- Waves Effect Css -->
+	<link href="/static/admin/plugins/node-waves/waves.css" rel="stylesheet" />
+
+	<!-- Animation Css -->
+	<link href="/static/admin/plugins/animate-css/animate.css" rel="stylesheet" />
+
+	<!-- Morris Chart Css-->
+	<link href="/static/admin/plugins/morrisjs/morris.css" rel="stylesheet" />
+
+	<!-- Custom Css -->
+	<link href="/static/admin/css/style.css" rel="stylesheet">
+
+	<!-- AdminBSB Themes. You can choose a theme from /static/admin/css/themes instead of get all themes -->
+	<link href="/static/admin/css/themes/all-themes.css" rel="stylesheet" />
+	<link href="/static/admin/css/result.css" rel="stylesheet">
+
+
+
+
+
+
+
+
+</head>
+
+<body class="theme-red">
+
+
+	<style type="text/css">
+	.glyphicon-search{
+		font-size: 1.2em;
+	}
+	</style>
+	<!-- Overlay For Sidebars -->
+	<div class="overlay"></div>
+	<!-- #END# Overlay For Sidebars -->
+	<!-- Search Bar -->
+	<div class="search-bar">
+		<div class="search-icon">
+			<i class="material-icons">search</i>
+		</div>
+		<form method="post" action="/search">
+			<input type="text" name="search" placeholder="Enter search text..">
+			<input type="submit" name ="searchButton" style="position: absolute; left: -9999px">
+		</form>
+		<div class="close-search">
+			<i class="material-icons">close</i>
+		</div>
+	</div>
+	<!-- #END# Search Bar -->
+	<!-- Top Bar -->
+	<nav class="navbar">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+				<a href="javascript:void(0);" class="bars"></a>
+				<a class="navbar-brand" href="/">Youtube Video Search</a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav navbar-left">
+					<!-- Call Search -->
+					<li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
+					<!-- #END# Call Search -->
+
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					{%if current_user.is_authenticated%}
+					<li><a href="/logout" > Logout <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> </a></li>
+					{%else%}
+
+					<li><a href="/login" >Login <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> </a></li>
+					<li><a href="/register" > Register <span class="glyphicon glyphicon-user" aria-hidden="true"></span> </a></li>
+					{%endif%}
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- #Top Bar -->
+	<section>
+		<!-- Left Sidebar -->
+		<aside id="leftsidebar" class="sidebar">
+			<!-- User Info -->
+			<div class="user-info">
+				<div class="image">
+					<img src="/static/admin/images/user.png" width="48" height="48" alt="User" />
+				</div>
+				<div class="info-container">
+					<div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						{%if current_user.is_authenticated%}
+						Welcome {{current_user.name}}
+						{%else%}
+						Welcome Guest 
+						{%endif%}
+						
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			<!-- #User Info -->
+			<!-- Menu -->
+			
+
+			
+			<div class="menu">
+				<ul class="list">
+					<li class="header">MAIN NAVIGATION</li>
+					<li class="active">
+						<a href="/">
+							<i class="material-icons">home</i>
+							<span>Home</span>
+						</a>
+					</li>
+
+					{%if current_user.is_authenticated%}
+					<li>
+						<a href="/subscribed">
+							<i class="material-icons">layers</i>
+							<span>Subscriptions</span>
+						</a>
+					</li>
+					<li>
+						<a href="/liked" >
+							<i class="material-icons">widgets</i>
+							<span>Likes</span>
+						</a>
+					</li>
+
+					{%else%}
+					<li>
+						<a href="javascript:void(0);" class="menu-toggle">
+							<i class="material-icons">layers</i>
+							<span>Popular Channels</span>
+						</a>
+
+						<ul class="ml-menu">
+							{%for channel in ChannelsAre%}
+
+                           	 <li>
+                                <a href="/channel/{{channel[0]}}">{{channel[1]}}</a>
+                            </li>
+                         	{%endfor%}
+                        </ul>
+
+                      </li>
+					{%endif%}
+
+				</ul>
+			</div>
+
+
+			<!-- #Menu -->
+		</aside>
+	</section>
+
+	<section class="content " >
+		<div class="row">
+			<div class="container-fluid mainVid col-md-6">
+				<div class="vidPanel">
+					{%if result%}
+					{%for object in result%}
+					<div class="vid">
+						<iframe  src="https://www.youtube.com/embed/{{object.videoInfo.id}}?rel=0"  width="560" height="315" frameborder="0" allowfullscreen></iframe>
+					</div>
+
+					<div class="vidInfo-panel">
+						<p id="title">{{object.videoInfo.snippet.title}}</p>
+						<div class="vidDetails">
+
+							<a href="/channel/{{object.videoInfo.snippet.channelId}}"><b> {{object.videoInfo.snippet.channelTitle}} </b></a>
+							{%if current_user.is_authenticated%}
+							<form id="Subscribe" method='GET' action='/subscribe/{{object._id}}/{{object.videoInfo.snippet.channelId}}/{{object.videoInfo.snippet.channelTitle}}'>
+								<div>
+									{%if subscribed%}
+									<button type="submit" class="btn btn-sm btn-warning">Unsubscribe <span class="glyphicon glyphicon-exclamation-sign"></span></button>
+									
+									{%else%}
+									<button type="submit" class="btn btn-sm btn-success">
+										Subscribe <span class="glyphicon glyphicon-link"></span>
+									</button>
+									{%endif%}
+								</div>
+
+							</form>
+							{%endif%}
+
+							<span >{{object.videoInfo.statistics.likeCount}} likes
+								{%if current_user.is_authenticated%}
+								<form method='GET' action='/like/{{object._id}}'>
+									<div>
+										{%if liked%}
+										<button type="submit" class="btn btn-sm btn-info">Unlike <span class="glyphicon glyphicon-thumbs-down"></span></button>
+
+										{%else%}
+										<button type="submit" class="btn btn-sm btn-primary likeBtn">Like <span class="glyphicon glyphicon-thumbs-up"></span></button>
+										{%endif%}
+
+									</div>
+								</form>
+								{%endif%}
+							</span>
+
+							<div class="lib-header-seperator"></div>
+							<p id="description">
+								{{object.videoInfo.snippet.description}} 
+							</p>
+						</div>
+					</div>
+
+					{%endfor%}
+					{%else%}
+					YOlO
+					{%endif%}
+				</div>
+			</div>
+
+			<div class="col-md-6 relatedVid">
+
+				<div class="container ">
+					{%if arr%}
+					{%for object in arr%}
+					<div class="lib-item" data-category="view">
+						<div class="lib-panel">
+							<div class="panel-image">
+								<img src="{{object.videoInfo.snippet.thumbnails.default.url}}">
+							</div>
+
+							<div class="panel-desc">
+								<div class="lib-row lib-header"  style="font-size:14px;">
+									<a href="/result/{{object._id}}">
+										{{object.videoInfo.snippet.title}}
+									</a>
+
+								</div>
+								<div class="lib-row lib-desc">
+
+									<a href="/channel/{{object.videoInfo.snippet.channelId}}">
+									<b style="font-size:14px"> {{object.videoInfo.snippet.channelTitle}} </b></a>
+									<span style="float:right; font-size:12px;"> {{object.videoInfo.statistics.viewCount}} views </span>
+								</div>
+
+
+								<div class="vidDescription">
+									{{object.videoInfo.snippet.description}}
+								</div>
+							</div>
+						</div>
+					</div>
+					{%endfor%}
+					{%endif%}
+				</div>
+			</div>
+
+
+		</div>
+
+	</section>
+
+	<!-- Jquery Core Js -->
+	<script src="/static/admin/plugins/jquery/jquery.min.js"></script>
+
+	<!-- Bootstrap Core Js -->
+	<script src="/static/admin/plugins/bootstrap/js/bootstrap.js"></script>
+
+	<!-- Select Plugin Js -->
+	<script src="/static/admin/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+	<!-- Slimscroll Plugin Js -->
+	<script src="/static/admin/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+	<!-- Waves Effect Plugin Js -->
+	<script src="/static/admin/plugins/node-waves/waves.js"></script>
+
+
+	<script src="/static/admin/js/admin.js"></script>
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="/static/jquery_silver/lib/jquery-easing-1.3.0.js"></script>
+	<script src="/static/jquery_silver/lib/modernizr.mediaqueries.transforms3d.js"></script>
+	<script src="/static/jquery_silver/src/jquery.silver_track.js" ></script>
+
+
+	<script src="/static/jquery_silver/src/plugins/jquery.silver_track.navigator.js" ></script>
+	<script src="/static/jquery_silver/src/plugins/jquery.silver_track.responsive_hub_connector.js" ></script>
+
+	<script src="/static/jquery_silver/src/plugins/jquery.silver_track.css3_animation.js" ></script>
+
+
+	<script src="/static/jquery_silver/example/js/example5.js" ></script>
+
+
+</body>
+
+</html>

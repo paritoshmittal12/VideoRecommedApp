@@ -1,0 +1,191 @@
+/*body {
+  font-family: Helvetica Neue, serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  background: #f1f1f1;
+}
+
+h2 {
+  padding: 0;
+  margin: 0 0 10px 0;
+}
+
+
+
+.container {
+  width: 88%;
+  margin: 5px;
+  margin-left: -2%
+}
+
+.actions {
+  margin-top: 10px;
+}
+
+.track {
+  width: 100%;
+  position: relative;
+}
+
+.view-port, .track .inner {
+  width: 100%;
+}
+
+.axis-y .view-port,
+.axis-y .track .inner {
+  width: 240px;
+  height: 660px;
+}
+
+
+.view-port {
+  overflow: hidden;
+  position: relative;
+}
+
+.track .inner {
+  position: relative;
+
+  margin:5px;
+  margin-bottom: 10px;
+  padding: 8px;
+
+  background: #FFFFFF;
+  border-radius: 4px;
+}
+
+.track .inner h4 {
+
+  color: #000000;
+}
+
+.track .inner h4:hover {
+  color: #6A3;
+}
+
+.track a.prev,
+.track a.next {
+  display: block;
+  position: absolute;
+  top: 50%;
+  margin-top: -32px;
+  width: 64px;
+  height: 64px;
+  background: url("../img/arrows.png");
+  background-repeat: no-repeat;
+}
+
+.track a.prev.disabled,
+.track a.next.disabled {
+ 
+}
+
+.track a.prev {
+  left: 0;
+  background-position: 0 0;
+}
+
+.track a.prev:hover {
+  background-position: 0 -66px;
+}
+
+.track a.prev:active {
+  background-position: 0 -132px;
+}
+
+.track a.next {
+  right: 0;
+  background-position: -64px 0;
+}
+
+.track a.next:hover {
+  background-position: -64px -132px;
+}
+
+.track a.next:active {
+  background-position: -64px -198px;
+}
+
+.slider-container {
+  position: relative;
+  margin: 0;
+  padding: 0;
+
+  height: 230px;
+}
+
+.slider-container .item {
+  position: absolute;
+
+  width: 224px;
+  height: 230px;
+
+  margin-right: 16px;
+}
+
+.slider-container .item img {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 2px solid white;
+  width: 100%;
+}
+
+
+
+.slider-container .item p{
+
+  display: block; /* Fallback for non-webkit */
+  /*display: -webkit-box;
+  max-width: 100%;
+  height: 16*1.4*2; /* Fallback for non-webkit */
+ /* margin: 0 auto;
+  font-size: 14px;
+  line-height: 1.4;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}*/
+/*
+.img-block {
+  margin-bottom: 16px;
+}
+
+
+
+#vid{
+
+  margin-left: 20vw;
+}*/
+
+
+.vidDescription{
+  word-wrap: break-word;
+
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  max-width: 90%;
+  height: 16*1.4*2; /* Fallback for non-webkit */
+  margin: 0 auto;
+  font-size: 12px;
+  line-height: 1.4;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+
+
+.lib-header-seperator #description{
+  overflow: hidden;
+  overflow-y:scroll;
+  max-height:300px;
+  white-space: pre-line;
+  background: #ffffff;
+}
